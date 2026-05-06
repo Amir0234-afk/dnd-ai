@@ -100,6 +100,10 @@ dnd-ai/
 
 Edit `backend/assets/system_prompt.md` to change how the GM behaves — tone, rules system, world style, house rules, etc. You can also point `system_prompt_path` in `config.json` at any other markdown file.
 
+## Contributing
+
+Issues and suggestions are welcome! If you have an idea, a bug report, or a feature request, open an issue on [GitHub Issues](https://github.com/Amir0234-afk/dnd-ai/issues) and I'll take a look.
+
 ## License
 
 MIT — see [LICENSE](LICENSE).
