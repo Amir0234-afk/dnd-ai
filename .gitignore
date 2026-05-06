@@ -1,0 +1,27 @@
+# secrets & local config
+.env
+backend/config.json
+
+# python
+backend/venv/
+backend/__pycache__/
+**/__pycache__/
+*.pyc
+*.pyo
+
+# node
+frontend/node_modules/
+
+# build output
+frontend/dist/
+
+# session storage
+data/
+backend/data/
+
+# IDE
+.vscode/
+.idea/
+
+# claude
+.claude/

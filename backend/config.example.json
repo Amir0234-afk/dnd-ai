@@ -1,0 +1,12 @@
+{
+  "llm": {
+    "provider": "google",
+    "model": "gemini-2.5-flash",
+    "api_key": "YOUR_API_KEY_HERE",
+    "base_url": null,
+    "temperature": 0.9,
+    "max_tokens": 2048
+  },
+  "storage_path": "./data",
+  "system_prompt_path": null
+}

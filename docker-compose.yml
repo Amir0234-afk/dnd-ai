@@ -1,0 +1,9 @@
+services:
+  app:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ${STORAGE_PATH:-./data}:/data
+    environment:
+      - STORAGE_PATH=/data
