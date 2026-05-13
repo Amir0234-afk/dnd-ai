@@ -1,5 +1,6 @@
 services:
   app:
+    image: ghcr.io/amir0234-afk/dnd-ai:latest
     build: .
     ports:
       - "${HOST_PORT:-7432}:7432"

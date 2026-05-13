@@ -72,24 +72,43 @@ For `custom`, set `base_url` to any OpenAI-compatible endpoint.
 
 ### Docker (self-hosting)
 
-The easiest way to run the full stack. The image builds the frontend and serves everything from a single container on port **7432**.
+A pre-built image is published to GitHub Container Registry on every push to `master`. No build step required.
+
+**Quick start — one command**
 
 ```bash
-git clone https://github.com/Amir0234-afk/dnd-ai.git
-cd dnd-ai
-docker compose up --build -d
+docker run -d \
+  -p 7432:7432 \
+  -v dnd_data:/data \
+  -e STORAGE_PATH=/data \
+  --name dnd-ai \
+  --restart unless-stopped \
+  ghcr.io/amir0234-afk/dnd-ai:latest
 ```
 
-Then open `http://localhost:7432`, go to **Settings**, enter your LLM provider and API key, and start playing. Session data is stored in a named Docker volume (`dnd_data`) and persists across restarts.
+Open `http://localhost:7432`, go to **Settings**, enter your LLM provider and API key, and start playing.
+
+**With docker compose (recommended)**
+
+```bash
+curl -O https://raw.githubusercontent.com/Amir0234-afk/dnd-ai/master/docker-compose.yml
+curl -O https://raw.githubusercontent.com/Amir0234-afk/dnd-ai/master/.env.example
+cp .env.example .env          # edit HOST_PORT if needed
+docker compose up -d
+```
 
 **Change the port**
 
-Copy `.env.example` to `.env` and set `HOST_PORT`:
+Edit `.env` and set `HOST_PORT` before starting:
+
+```env
+HOST_PORT=9000
+```
+
+**Update to the latest image**
 
 ```bash
-cp .env.example .env
-# edit .env — e.g. HOST_PORT=9000
-docker compose up --build -d
+docker compose pull && docker compose up -d
 ```
 
 **Expose publicly (reverse proxy)**
@@ -102,13 +121,20 @@ yourdomain.com {
 }
 ```
 
+**Build from source**
+
+```bash
+git clone https://github.com/Amir0234-afk/dnd-ai.git
+cd dnd-ai
+docker compose up --build -d
+```
+
 **Useful commands**
 
 ```bash
-docker compose logs -f          # live logs
-docker compose down             # stop
-docker compose down -v          # stop and delete session data
-docker compose pull && docker compose up -d --build   # update
+docker compose logs -f        # live logs
+docker compose down           # stop
+docker compose down -v        # stop and delete all session data
 ```
 
 ## Project Structure
