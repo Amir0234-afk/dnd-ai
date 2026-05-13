@@ -70,11 +70,45 @@ The UI runs at `http://localhost:5173`.
 For `ollama`, set `base_url` to your Ollama host (default `http://localhost:11434`) and leave `api_key` empty.  
 For `custom`, set `base_url` to any OpenAI-compatible endpoint.
 
-### Docker
+### Docker (self-hosting)
+
+The easiest way to run the full stack. The image builds the frontend and serves everything from a single container on port **7432**.
 
 ```bash
-cp backend/config.example.json backend/config.json  # edit first
-docker compose up --build
+git clone https://github.com/Amir0234-afk/dnd-ai.git
+cd dnd-ai
+docker compose up --build -d
+```
+
+Then open `http://localhost:7432`, go to **Settings**, enter your LLM provider and API key, and start playing. Session data is stored in a named Docker volume (`dnd_data`) and persists across restarts.
+
+**Change the port**
+
+Copy `.env.example` to `.env` and set `HOST_PORT`:
+
+```bash
+cp .env.example .env
+# edit .env — e.g. HOST_PORT=9000
+docker compose up --build -d
+```
+
+**Expose publicly (reverse proxy)**
+
+Point nginx / Caddy / Traefik at the container. Example Caddy config:
+
+```
+yourdomain.com {
+    reverse_proxy localhost:7432
+}
+```
+
+**Useful commands**
+
+```bash
+docker compose logs -f          # live logs
+docker compose down             # stop
+docker compose down -v          # stop and delete session data
+docker compose pull && docker compose up -d --build   # update
 ```
 
 ## Project Structure

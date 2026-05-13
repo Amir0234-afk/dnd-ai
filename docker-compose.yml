@@ -2,8 +2,12 @@ services:
   app:
     build: .
     ports:
-      - "8000:8000"
+      - "${HOST_PORT:-7432}:7432"
     volumes:
-      - ${STORAGE_PATH:-./data}:/data
+      - dnd_data:/data
     environment:
       - STORAGE_PATH=/data
+    restart: unless-stopped
+
+volumes:
+  dnd_data:

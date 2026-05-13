@@ -1,5 +1,6 @@
 # secrets & local config
 .env
+!.env.example
 backend/config.json
 
 # python
